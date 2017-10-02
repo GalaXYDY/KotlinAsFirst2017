@@ -100,8 +100,8 @@ fun fib(n: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var com = 0
-    var minNum = min(m,n)
-    var maxNum = max(m,n)
+    val minNum = min(m,n)
+    val maxNum = max(m,n)
         if (maxNum == minNum) return maxNum
         else if (isPrime(minNum) && isPrime(maxNum)) return maxNum * minNum
         else for (i in maxNum..maxNum * minNum){
@@ -117,11 +117,10 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    val mindev = n
     for (i in 2..n / 2) {
         if (n % i == 0) return i
     }
-    return mindev
+    return n
 }
 
 
