@@ -1,6 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import java.lang.Integer.max
+import java.lang.Integer.min
+
 /**
  * Пример
  *
@@ -60,7 +63,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var k = 0
+    var number = n
+    if (n == 0) return 1
+    while (number > 0) {
+        number /= 10
+        k++
+    }
+    return k
+}
 
 /**
  * Простая
@@ -68,7 +80,17 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var k = 1
+    var fibPrev = 1
+    var fibPrev2 = 1
+    for (i in 3..n){
+        fibPrev2 = fibPrev
+        fibPrev = k
+        k += fibPrev2
+    }
+    return k
+}
 
 /**
  * Простая
@@ -76,14 +98,32 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var com = 0
+    var minNum = min(m,n)
+    var maxNum = max(m,n)
+        if (maxNum == minNum) return maxNum
+        else if (isPrime(minNum) && isPrime(maxNum)) return maxNum * minNum
+        else for (i in maxNum..maxNum * minNum){
+            if ((i % maxNum) == 0 && (i % minNum) == 0){
+                com = i; break}
+        }
+    return com
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    val mindev = n
+    for (i in 2..n / 2) {
+        if (n % i == 0) return i
+    }
+    return mindev
+}
+
 
 /**
  * Простая
