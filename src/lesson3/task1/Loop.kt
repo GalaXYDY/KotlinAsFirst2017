@@ -80,17 +80,7 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int {
-    var k = 1
-    var fibPrev = 1
-    var fibPrev2 = 1
-    for (i in 3..n){
-        fibPrev2 = fibPrev
-        fibPrev = k
-        k += fibPrev2
-    }
-    return k
-}
+fun fib(n: Int): Int = TODO()
 
 /**
  * Простая
@@ -98,18 +88,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var com = 0
-    val minNum = min(m,n)
-    val maxNum = max(m,n)
-        if (maxNum == minNum) return maxNum
-        else if (isPrime(minNum) && isPrime(maxNum)) return maxNum * minNum
-        else for (i in maxNum..maxNum * minNum){
-            if ((i % maxNum) == 0 && (i % minNum) == 0){
-                com = i; break}
-        }
-    return com
-}
+fun lcm(m: Int, n: Int): Int = TODO()
 
 /**
  * Простая
