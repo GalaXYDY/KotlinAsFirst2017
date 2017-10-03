@@ -197,8 +197,7 @@ fun isPalindrome(n: Int): Boolean {
         num2 /= 10
         if (num == num2)
             return true
-                else
-            return false
+            else return false
     }
     return true
 }
