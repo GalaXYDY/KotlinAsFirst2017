@@ -189,7 +189,19 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var num = n
+    var num2 = revert(n)
+    while (num > 0 && num2 > 0 && num % 10 == num2 % 10) {
+        num /= 10
+        num2 /= 10
+        if (num == num2)
+            return true
+                else
+            return false
+    }
+    return true
+}
 
 /**
  * Средняя
