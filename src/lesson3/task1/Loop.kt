@@ -1,8 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
-import java.lang.Integer.max
-import java.lang.Integer.min
+import lesson4.task1.abs
+import java.lang.Integer.*
 
 /**
  * Пример
@@ -67,7 +67,7 @@ fun digitNumber(n: Int): Int {
     var k = 0
     var number = n
     if (n == 0) return 1
-    while (number > 0) {
+    while (number != 0) {
         number /= 10
         k++
     }
