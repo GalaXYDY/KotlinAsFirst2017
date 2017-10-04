@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import lesson1.task1.sqr
 import lesson4.task1.abs
 import java.lang.Integer.*
 
@@ -197,10 +198,8 @@ fun isPalindrome(n: Int): Boolean {
         num2 /= 10
         if (num == num2)
             return true
-                else
-            return false
     }
-    return true
+    return false
 }
 
 /**
