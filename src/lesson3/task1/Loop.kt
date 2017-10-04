@@ -191,15 +191,10 @@ fun revert(n: Int): Int {
  * 15751 -- палиндром, 3653 -- нет.
  */
 fun isPalindrome(n: Int): Boolean {
-    var num = n
-    var num2 = revert(n)
-    while (num > 0 && num2 > 0 && num % 10 == num2 % 10) {
-        num /= 10
-        num2 /= 10
-        if (num == num2)
-            return true
-    }
-    return false
+    val num = n
+    val num2 = revert(n)
+    if (num == num2) return true
+        else return false
 }
 
 /**
