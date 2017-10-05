@@ -81,7 +81,17 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var fib1 = 0
+    var fib2 = 1
+    var num = 1
+    for (i in 2..n) {
+        num = fib1 + fib2
+        fib1 = fib2
+        fib2 = num
+    }
+    return num
+}
 
 /**
  * Простая
@@ -89,7 +99,13 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    val maxnum = m * n
+    for (i in max(m,n)..maxnum){
+        if (i % n == 0 && i % m == 0) return i
+    }
+    return maxnum
+}
 
 /**
  * Простая
@@ -203,7 +219,10 @@ fun isPalindrome(n: Int): Boolean {
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    if (digitCountInNumber(n, n % 10) != digitNumber(n)) return true
+    else return false
+}
 
 /**
  * Сложная
