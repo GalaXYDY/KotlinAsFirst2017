@@ -123,12 +123,11 @@ fun abs(v: List<Double>): Double {
  */
 fun mean(list: List<Double>): Double {
     var meanN = 0.0
-    var k = 0.0
+    val k = list.size
     for (element in list){
         meanN += element
-        k += 1
     }
-    if (k == 0.0) return 0.0
+    if (k == 0) return 0.0
     else return meanN / k
 }
 

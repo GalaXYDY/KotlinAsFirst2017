@@ -57,9 +57,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s2 = t2 * v2
     val s3 = t3 * v3
     val sh = (s1 + s2 + s3) / 2.0
-    return if(sh <= s1) sh / v1
-        else if((sh > s1) && (sh <= s1 + s2)) t1 + (sh - s1) / v2
-            else  t1 + t2 + (sh - s2 - s1) / v3
+    return when {
+        sh <= s1 -> sh / v1
+        sh > s1 && sh <= s1 + s2 -> t1 + (sh - s1) / v2
+        else -> t1 + t2 + (sh - s2 - s1) / v3
+    }
 }
 
 /**
@@ -74,10 +76,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int = when{
-    kingX != rookX1 && kingX != rookX2 && kingY != rookY1 && kingY != rookY2 -> 0
-    (kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2) -> 1
-    (kingX == rookX2 || kingY == rookY2) && (kingY != rookY1 && kingX != rookX1) -> 2
-    else -> 3
+    (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
+    kingX == rookX1 || kingY == rookY1 -> 1
+    kingX == rookX2 || kingY == rookY2 -> 2
+    else -> 0
 }
 
 /**
@@ -93,10 +95,10 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int = when{
-    kingX != rookX && kingY != rookY && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 0
-    (kingX == rookX || kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
-    (kingX != rookX && kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
-    else -> 3
+    (kingX == rookX || kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
+    kingX == rookX || kingY == rookY -> 1
+    abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
+    else -> 0
 }
 
 /**
@@ -128,7 +130,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when{
-    b == c || a == d -> 0
     (a <= c) && d in c..b -> d - c
     (c <= a) && b in a..d -> b - a
     (c <= a) && d in a..b -> d - a
