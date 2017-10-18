@@ -3,6 +3,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import java.lang.Math.pow
 import java.lang.Math.sqrt
 
 /**
@@ -139,7 +140,15 @@ fun mean(list: List<Double>): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    var centerN = 0
+    val meanN = mean(list)
+    for (element in list){
+        list[centerN] = element - meanN
+        centerN ++
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -148,7 +157,12 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var c = 0.0
+    for (i in 0 until b.size){
+        c += a[i] * b[i]}
+    return c
+}
 
 /**
  * Средняя
@@ -158,7 +172,13 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    var r = 0.0
+    for (i in 0 until p.size){
+        r += p[i] * pow(x, i.toDouble())
+    }
+    return r
+}
 
 /**
  * Средняя
