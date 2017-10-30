@@ -217,7 +217,7 @@ fun factorize(n: Int): List<Int> {
         }
         else sp++
     }
-    return list.sorted()
+    return list
 }
 
 /**
@@ -301,7 +301,21 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val RomNum = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    val ArabNum = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    var num = n
+    var result = ""
+    var i = 12
+    while (num > 0) {
+        if (num >= ArabNum[i]) {
+            result += RomNum[i]
+            num -= ArabNum[i]
+        }
+        else i--
+    }
+    return result
+}
 
 /**
  * Очень сложная
