@@ -235,7 +235,16 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString("*")
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val list = mutableListOf<Int>()
+    var num = n
+    while (num > 0) {
+        list += num % base
+        num /= base
+    }
+    return if (n == 0) listOf(0)
+    else list.reversed()
+}
 
 /**
  * Сложная
@@ -245,7 +254,17 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val list = convert(n, base)
+    val list2 = mutableListOf<String>()
+    for (i in 0 until list.size) {
+        if (list[i] > 9) {
+            list2.add(((list[i] + 87).toChar()).toString())
+        }
+        else list2.add(list[i].toString())
+    }
+    return list2.joinToString("")
+}
 
 /**
  * Средняя
