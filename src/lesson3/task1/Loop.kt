@@ -100,11 +100,13 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val maxnum = m * n
-    for (i in max(m,n)..maxnum){
-        if (i % n == 0 && i % m == 0) return i
+    var a = m
+    var b = n
+    while (a != b){
+        if (a > b) a -= b
+        else b-=a
     }
-    return maxnum
+    return m * n / b
 }
 
 /**
@@ -142,15 +144,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    val maxN = max(m,n)
-    val minN = min(m,n)
-    if (isPrime(m) && isPrime(n) && (n != m)) return true
-    for (i in 2..minN){
-        if (minN % i == 0 && maxN % i == 0) return false
-    }
-    return true
-}
+fun isCoPrime(m: Int, n: Int): Boolean = lcm(m,n) == m * n
 
 /**
  * Простая
@@ -196,13 +190,11 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun revert(n: Int): Int {
     var m = 0
     var num = n
-    var num2 = n
 
-    while (num2 > 0){
-        num2 %= 10
+    while (num > 0){
+        val num2 = num % 10
         m = m * 10 + num2
         num /= 10
-        num2 = num
     }
     return m
 }
