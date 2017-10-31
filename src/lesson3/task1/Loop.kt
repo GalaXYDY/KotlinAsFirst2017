@@ -266,7 +266,7 @@ fun fibSequenceDigit(n: Int): Int {
         k++
         num += digitNumber(fib(k))
     }
-    var res = fib(k
+    var res = fib(k)
     for (i in n until num) {
         res /= 10
     }
