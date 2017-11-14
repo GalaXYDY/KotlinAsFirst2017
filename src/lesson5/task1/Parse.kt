@@ -138,7 +138,7 @@ fun flattenPhoneNumber(phone: String): String {
  */
 fun bestLongJump(jumps: String): Int {
     val result = jumps.split(" ")
-    val symbols = listOf("%", "-")
+    val symbols = listOf("%", "-", " ","")
     var max = -1
     try {
         for (element in result) {
@@ -176,7 +176,7 @@ fun bestHighJump(jumps: String): Int {
         }
     }
     catch (e: NumberFormatException){
-        return -1 
+        return -1
     }
     return max
 }
