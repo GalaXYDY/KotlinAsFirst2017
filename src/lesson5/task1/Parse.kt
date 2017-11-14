@@ -176,7 +176,7 @@ fun bestHighJump(jumps: String): Int {
         }
     }
     catch (e: NumberFormatException){
-        return -1
+        return -1 
     }
     return max
 }
