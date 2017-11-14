@@ -2,6 +2,7 @@
 
 package lesson4.task1
 
+import javafx.beans.binding.Bindings.length
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
@@ -302,17 +303,17 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val RomNum = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
-    val ArabNum = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    val list = listOf("I", "1", "IV", "4", "V", "5", "IX", "9", "X", "10", "XL", "40", "L", "50", "XC", "90",
+            "C", "100", "CD", "400", "D", "500", "CM", "900", "M", "1000")
     var num = n
     var result = ""
-    var i = 12
+    var i = list.size - 1
     while (num > 0) {
-        if (num >= ArabNum[i]) {
-            result += RomNum[i]
-            num -= ArabNum[i]
+        if (num >= list[i].toInt()) {
+            result += list[i - 1]
+            num -= list[i].toInt()
         }
-        else i--
+        else i -= 2
     }
     return result
 }
@@ -325,3 +326,7 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
+/* val nnuu = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
+        "девять", "десять", "одинадцать", "двенадцать", "тринадцать", "четырнадцать", "пятьнадцать",
+        "шестьнадцать", "семьнадцать", "восемьнадцать", "девятьнадцать")
+} */
