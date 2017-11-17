@@ -4,6 +4,7 @@ package lesson3.task1
 import lesson1.task1.sqr
 import lesson4.task1.abs
 import java.lang.Integer.*
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -107,7 +108,7 @@ fun lcm(m: Int, n: Int): Int = n / nod(m, n) * m
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n / 4) {
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
         if (n % i == 0) return i
     }
     return n
