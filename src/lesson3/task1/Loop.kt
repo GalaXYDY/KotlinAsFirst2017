@@ -99,15 +99,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var a = m
-    var b = n
-    while (a != b){
-        if (a > b) a -= b
-        else b-=a
-    }
-    return m * n / b
-}
+fun lcm(m: Int, n: Int): Int = n / nod(m, n) * m
 
 /**
  * Простая
@@ -115,7 +107,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n / 2) {
+    for (i in 2..n / 4) {
         if (n % i == 0) return i
     }
     return n
@@ -128,13 +120,10 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var maxD = 1
-    for (i in 2..n /2) {
-        if (n % i == 0) {
-            maxD = i
-        }
+    for (i in n/2 downTo 2) {
+        if (n % i == 0) return i
     }
-    return maxD
+    return 1
 }
 
 /**
@@ -221,8 +210,14 @@ fun isPalindrome(n: Int): Boolean {
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    if (digitCountInNumber(n, n % 10) != digitNumber(n)) return true
-    else return false
+    var num = n
+    val num2 = n % 10
+    while (num > 0) {
+        if (num % 10 != num2)
+            return true
+            else num /= 10
+    }
+    return false
 }
 
 /**

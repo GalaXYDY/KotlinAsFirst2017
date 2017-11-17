@@ -2,7 +2,6 @@
 
 package lesson4.task1
 
-import javafx.beans.binding.Bindings.length
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
@@ -145,11 +144,9 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var centerN = 0
     val meanN = mean(list)
-    for (element in list) {
-        list[centerN] = element - meanN
-        centerN++
+    for (i in 0 until list.size) {
+        list[i] -= meanN
     }
     return list
 }
@@ -179,8 +176,10 @@ fun times(a: List<Double>, b: List<Double>): Double {
  */
 fun polynom(p: List<Double>, x: Double): Double {
     var r = 0.0
-    for (i in 0 until p.size) {
-        r += p[i] * pow(x, i.toDouble())
+    var pow = 1.0
+    for (i in p) {
+        r += i * pow
+        pow *= x
     }
     return r
 }
@@ -211,7 +210,7 @@ fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
     var sp = 2
     var l = n
-    while (sp <= l) {
+    while (l > 1) {
         if (l % sp == 0){
             list += sp
             l /= sp
@@ -258,10 +257,10 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
     val list2 = mutableListOf<String>()
-    for (i in 0 until list.size) {
-        if (list[i] > 9) {
-            list2.add(((list[i] + 87).toChar()).toString())
-        }
+    val alphabet = listOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",
+            "r","s","t","u","v","w","x","y","z")
+    for(i in 0 until list.size){
+        if (list[i] > 9) list2.add(alphabet[list[i] - 10])
         else list2.add(list[i].toString())
     }
     return list2.joinToString("")
@@ -275,10 +274,11 @@ fun convertToString(n: Int, base: Int): String {
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    val list = digits.reversed()
     var n = 0
-    for (i in 0 until list.size){
-        n += list[i] * pow(base.toDouble(), i.toDouble()).toInt()
+    var pow = 1
+    for (i in digits.reversed()){
+        n += i * pow
+        pow *= base
     }
     return n
 }
@@ -303,17 +303,18 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val list = listOf("I", "1", "IV", "4", "V", "5", "IX", "9", "X", "10", "XL", "40", "L", "50", "XC", "90",
-            "C", "100", "CD", "400", "D", "500", "CM", "900", "M", "1000")
+    val list = listOf(Pair("I",1), Pair("IV", 4), Pair("V", 5), Pair("IX", 9), Pair("X", 10), Pair("XL", 40)
+            , Pair("L", 50), Pair("XC", 90), Pair("C", 100), Pair("CD", 400), Pair("D", 500), Pair("CM", 900)
+            , Pair("M", 1000))
     var num = n
     var result = ""
     var i = list.size - 1
-    while (num > 0) {
-        if (num >= list[i].toInt()) {
-            result += list[i - 1]
-            num -= list[i].toInt()
+   while (num > 0) {
+        if (num >= list[i].second) {
+            result += list[i].first
+            num -= list[i].second
         }
-        else i -= 2
+        else i -= 1
     }
     return result
 }
@@ -326,7 +327,3 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
-/* val nnuu = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
-        "девять", "десять", "одинадцать", "двенадцать", "тринадцать", "четырнадцать", "пятьнадцать",
-        "шестьнадцать", "семьнадцать", "восемьнадцать", "девятьнадцать")
-} */
