@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import lesson3.task1.isPrime
 import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
@@ -194,6 +195,8 @@ fun bestHighJump(jumps: String): Int {
 fun plusMinus(expression: String): Int {
     val list = expression.split(" ")
     var num = list[0].toInt()
+    if (list.size % 2 == 0) throw IllegalArgumentException()
+    if (list.isEmpty()) throw IllegalArgumentException()
     try {
         for (i in list.size - 1 downTo 1 step 2) {
             if (list[i - 1] == "+") num += list[i].toInt()
