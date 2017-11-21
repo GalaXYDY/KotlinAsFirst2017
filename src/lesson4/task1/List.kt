@@ -210,13 +210,14 @@ fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
     var sp = 2
     var l = n
-    while (l > 1) {
+    while (!isPrime(l)) {
         if (l % sp == 0){
             list += sp
             l /= sp
         }
         else sp++
     }
+    if (isPrime(l)) list += l
     return list
 }
 
@@ -307,16 +308,16 @@ fun roman(n: Int): String {
             , Pair("L", 50), Pair("XC", 90), Pair("C", 100), Pair("CD", 400), Pair("D", 500), Pair("CM", 900)
             , Pair("M", 1000))
     var num = n
-    var result = ""
+    val result = StringBuilder()
     var i = list.size - 1
    while (num > 0) {
         if (num >= list[i].second) {
-            result += list[i].first
+            result.append(list[i].first)
             num -= list[i].second
         }
         else i -= 1
     }
-    return result
+    return result.toString()
 }
 
 /**

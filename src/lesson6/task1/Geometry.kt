@@ -73,7 +73,6 @@ data class Circle(val center: Point, val radius: Double) {
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
     fun distance(other: Circle): Double = TODO()
-
     /**
      * Тривиальная
      *

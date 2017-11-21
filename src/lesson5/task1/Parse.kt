@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
+
 /**
  * Пример
  *
@@ -72,7 +74,7 @@ fun dateStrToDigit(str: String): String {
     val month: Int
     val list = str.split(" ")
     try {
-        if (list[1] in months)
+        if (list[1] in months && list.size == 3)
             month = (months.indexOf(list[1]) + 1)
         else return ""
         return String.format("%02d.%02d.%d", list[0].toInt(), month, list[2].toInt())
@@ -89,13 +91,13 @@ fun dateStrToDigit(str: String): String {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateDigitToStr(digital: String): String {
-    val date: String
-    val parts = digital.split(".")
+    val month: String
+    val date = digital.split(".")
     try {
-        if ((parts.size == 3) && (parts[1].toInt() in 1..12))
-            date = months[parts[1].toInt() - 1]
+        if ((date.size == 3) && (date[1].toInt() in 1..12))
+            month = months[date[1].toInt() - 1]
         else return ""
-        return String.format("%d %s %d", parts[0].toInt(), date, parts[2].toInt())
+        return String.format("%d %s %d", date[0].toInt(), month, date[2].toInt())
     } catch (e: Exception) {
         return ""
     }
@@ -115,15 +117,15 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     val symbols = listOf(' ', '-', '(', ')')
-    var num = ""
+    val num = StringBuilder()
     for (element in phone) {
         if (element == '+') {
-            num += "+"
+            num.append('+')
         } else if (element in '0'..'9') {
-            num += element.toString()
+            num.append(element)
         } else if (element !in symbols) return ""
     }
-    return num
+    return num.toString()
 }
 
 /**
@@ -138,7 +140,7 @@ fun flattenPhoneNumber(phone: String): String {
  */
 fun bestLongJump(jumps: String): Int {
     val result = jumps.split(" ")
-    val symbols = listOf("%", "-", " ", "")
+    val symbols = listOf("%", "-", "")
     var max = -1
     try {
         for (element in result) {
@@ -163,13 +165,13 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val symbols = listOf(" ", "%", "-")
+    val symbols = listOf("%", "-")
     val res = jumps.split(" ")
     var max = -1
     try {
-        for (element in 0 until res.size - 1) {
+        for (element in 0 until res.size - 1 step 2) {
             if (res[element] !in symbols) {
-                if ("+" in res[element + 1]) {
+                if ('+' in res[element + 1]) {
                     if (res[element].toInt() > max) max = res[element].toInt()
                 }
             }
@@ -189,7 +191,20 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val list = expression.split(" ")
+    var num = list[0].toInt()
+    try {
+        for (i in list.size - 1 downTo 1 step 2) {
+            if (list[i - 1] == "+") num += list[i].toInt()
+            if (list[i - 1] == "-") num -= list[i].toInt()
+        }
+    }
+    catch (e: NumberFormatException) {
+        throw IllegalArgumentException()
+    }
+    return num
+}
 
 /**
  * Сложная

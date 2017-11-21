@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
 import lesson1.task1.sqr
@@ -39,7 +40,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -121,7 +122,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    for (i in n/2 downTo 2) {
+    for (i in n / 2 downTo 2) {
         if (n % i == 0) return i
     }
     return 1
@@ -134,9 +135,9 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun nod(a: Int, b: Int): Int = if (a != 0) nod (b % a,a) else b
+fun nod(a: Int, b: Int): Int = if (a != 0) nod(b % a, a) else b
 
-fun isCoPrime(m: Int, n: Int): Boolean = nod(m,n) == 1
+fun isCoPrime(m: Int, n: Int): Boolean = nod(m, n) == 1
 
 /**
  * Простая
@@ -148,8 +149,8 @@ fun isCoPrime(m: Int, n: Int): Boolean = nod(m,n) == 1
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     var k = 0
     if (m == 0 && n == 0) return true
-    for (i in m..n){
-        k ++
+    for (i in m..n) {
+        k++
         if ((sqr(k.toDouble()) <= n) && (sqr(k.toDouble()) >= m)) return true
     }
     return false
@@ -183,7 +184,7 @@ fun revert(n: Int): Int {
     var m = 0
     var num = n
 
-    while (num > 0){
+    while (num > 0) {
         val num2 = num % 10
         m = m * 10 + num2
         num /= 10
@@ -216,7 +217,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     while (num > 0) {
         if (num % 10 != num2)
             return true
-            else num /= 10
+        else num /= 10
     }
     return false
 }
@@ -231,7 +232,7 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun squareSequenceDigit(n: Int): Int {
     var k = 0
     var num = 0
-    while (num < n){
+    while (num < n) {
         k++
         num += digitNumber(k * k)
     }
@@ -252,7 +253,7 @@ fun squareSequenceDigit(n: Int): Int {
 fun fibSequenceDigit(n: Int): Int {
     var k = 0
     var num = 0
-    while (num < n){
+    while (num < n) {
         k++
         num += digitNumber(fib(k))
     }
