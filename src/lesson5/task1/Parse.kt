@@ -119,6 +119,9 @@ fun dateDigitToStr(digital: String): String {
 fun flattenPhoneNumber(phone: String): String {
     val symbols = listOf(' ', '-', '(', ')')
     val num = StringBuilder()
+    for (i in 0 until phone.length - 1) {
+        if (i.toChar() == '+' && i.toChar() - 1 in symbols) return ""
+    }
     for (element in phone) {
         if (element == '+') {
             num.append('+')
