@@ -197,10 +197,11 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val list = expression.split(" ")
-    var num = list[0].toInt()
+    var num: Int
     if (list.size % 2 == 0) throw IllegalArgumentException()
     if (list.isEmpty()) throw IllegalArgumentException()
     try {
+        num = list[0].toInt()
         for (i in list.size - 1 downTo 1 step 2) {
             if (list[i - 1] == "+") num += list[i].toInt()
             if (list[i - 1] == "-") num -= list[i].toInt()
