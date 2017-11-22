@@ -203,11 +203,13 @@ fun plusMinus(expression: String): Int {
     try {
         num = list[0].toInt()
         for (i in list.size - 1 downTo 1 step 2) {
-            if (list[i - 1] == "+") num += list[i].toInt()
-            if (list[i - 1] == "-") num -= list[i].toInt()
+            when {
+                list[i - 1] == "+" -> num += list[i].toInt()
+                list[i - 1] == "-" -> num -= list[i].toInt()
+                else -> throw IllegalArgumentException()
+            }
         }
-    }
-    catch (e: NumberFormatException) {
+    } catch (e: NumberFormatException) {
         throw IllegalArgumentException()
     }
     return num
