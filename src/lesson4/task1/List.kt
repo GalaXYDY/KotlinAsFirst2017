@@ -258,10 +258,9 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
     val list2 = mutableListOf<String>()
-    val alphabet = listOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",
-            "r","s","t","u","v","w","x","y","z")
+    val alphabet = "abcdefghijklmnopqrstuvwxyz"
     for(i in 0 until list.size){
-        if (list[i] > 9) list2.add(alphabet[list[i] - 10])
+        if (list[i] > 9) list2.add(alphabet[list[i] - 10].toString())
         else list2.add(list[i].toString())
     }
     return list2.joinToString("")

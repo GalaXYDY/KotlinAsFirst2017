@@ -3,7 +3,6 @@
 package lesson5.task1
 
 import lesson3.task1.isPrime
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
  * Пример
