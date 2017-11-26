@@ -210,14 +210,14 @@ fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
     var sp = 2
     var l = n
-    while (!isPrime(l)) {
-        if (l % sp == 0){
+    if (isPrime(n)) list += n
+    else while (sp <= l) {
+        while (l % sp == 0){
             list += sp
             l /= sp
         }
-        else sp++
+        sp++
     }
-    if (isPrime(l)) list += l
     return list
 }
 

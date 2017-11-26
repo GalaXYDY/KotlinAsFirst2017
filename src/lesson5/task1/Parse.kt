@@ -74,7 +74,7 @@ fun dateStrToDigit(str: String): String {
     val month: Int
     val list = str.split(" ")
     try {
-        if (list[1] in months && list.size == 3)
+        if (list.size == 3 && list[1] in months)
             month = (months.indexOf(list[1]) + 1)
         else return ""
         return String.format("%02d.%02d.%d", list[0].toInt(), month, list[2].toInt())
@@ -168,15 +168,13 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val symbols = listOf("%", "-")
     val res = jumps.split(" ")
     var max = -1
+    if (res.size % 2 != 0) return -1
     try {
         for (element in 0 until res.size - 1 step 2) {
-            if (res[element] !in symbols) {
-                if ('+' in res[element + 1]) {
-                    if (res[element].toInt() > max) max = res[element].toInt()
-                }
+            if ('+' in res[element + 1]) {
+                if (res[element].toInt() > max) max = res[element].toInt()
             }
         }
     } catch (e: NumberFormatException) {
@@ -201,10 +199,10 @@ fun plusMinus(expression: String): Int {
     if (list.isEmpty()) throw IllegalArgumentException()
     try {
         num = list[0].toInt()
-        for (i in list.size - 1 downTo 1 step 2) {
-            when {
-                list[i - 1] == "+" -> num += list[i].toInt()
-                list[i - 1] == "-" -> num -= list[i].toInt()
+        for (i in 1 until list.size - 1 step 2) {
+            when (list[i]) {
+                "+" -> num += list[i + 1].toInt()
+                "-" -> num -= list[i + 1].toInt()
                 else -> throw IllegalArgumentException()
             }
         }
