@@ -212,7 +212,7 @@ fun factorize(n: Int): List<Int> {
     var l = n
     if (isPrime(n)) list += n
     else while (sp <= l) {
-        while (l % sp == 0){
+        while (l % sp == 0) {
             list += sp
             l /= sp
         }
@@ -259,7 +259,7 @@ fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
     val list2 = mutableListOf<String>()
     val alphabet = "abcdefghijklmnopqrstuvwxyz"
-    for(i in 0 until list.size){
+    for (i in 0 until list.size) {
         if (list[i] > 9) list2.add(alphabet[list[i] - 10].toString())
         else list2.add(list[i].toString())
     }
@@ -276,7 +276,7 @@ fun convertToString(n: Int, base: Int): String {
 fun decimal(digits: List<Int>, base: Int): Int {
     var n = 0
     var pow = 1
-    for (i in digits.reversed()){
+    for (i in digits.reversed()) {
         n += i * pow
         pow *= base
     }
@@ -303,18 +303,17 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val list = listOf(Pair("I",1), Pair("IV", 4), Pair("V", 5), Pair("IX", 9), Pair("X", 10), Pair("XL", 40)
+    val list = listOf(Pair("I", 1), Pair("IV", 4), Pair("V", 5), Pair("IX", 9), Pair("X", 10), Pair("XL", 40)
             , Pair("L", 50), Pair("XC", 90), Pair("C", 100), Pair("CD", 400), Pair("D", 500), Pair("CM", 900)
             , Pair("M", 1000))
     var num = n
     val result = StringBuilder()
     var i = list.size - 1
-   while (num > 0) {
+    while (num > 0) {
         if (num >= list[i].second) {
             result.append(list[i].first)
             num -= list[i].second
-        }
-        else i -= 1
+        } else i -= 1
     }
     return result.toString()
 }
@@ -326,4 +325,72 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val arabic = listOf((Pair("девятьсот", 900)), (Pair("восемьсот", 800)), (Pair("семьсот", 700)), (Pair("шестьсот", 600)),
+            (Pair("пятьсот", 500)), (Pair("четыреста", 400)), (Pair("триста", 300)), (Pair("двести", 200)),
+            (Pair("сто", 100)), (Pair("девяносто", 90)), (Pair("восемьдесят", 80)), (Pair("семьдесят", 70)),
+            (Pair("шестьдесят", 60)), (Pair("пятьдесят", 50)), (Pair("сорок", 40)), (Pair("тридцать", 30)),
+            (Pair("двадцать", 20)), (Pair("девятнадцать", 19)), (Pair("восемнадцать", 18)), (Pair("семнадцать", 17)),
+            (Pair("шестнадцать", 16)), (Pair("пятнадцать", 15)), (Pair("четырнадцать", 14)), (Pair("тринадцать", 13)),
+            (Pair("двенадцать", 12)), (Pair("одиннадцать", 11)), (Pair("десять", 10)), (Pair("девять", 9)),
+            (Pair("восемь", 8)), (Pair("семь", 7)), (Pair("шесть", 6)), (Pair("пять", 5)),
+            (Pair("четыре", 4)), (Pair("три", 3)), (Pair("два", 2)), (Pair("один", 1)))
+
+    var thousands = 0
+    var hundreds = n % 1000
+    var answer = ""
+    if (n == 0) return "ноль"
+    if (n >= 1000) thousands = n / 1000
+    if (thousands != 0) {
+        if (thousands in 100..999) {
+            for (i in 0 until arabic.size) {
+                if (arabic[i].second == (thousands / 100) * 100) {
+                    answer += arabic[i].first + " "
+                    thousands %= 100
+                }
+            }
+        }
+        if (thousands in 20..99) {
+            for (i in 0 until arabic.size) {
+                if (arabic[i].second == (thousands / 10) * 10) {
+                    answer += arabic[i].first + " "
+                    thousands %= 10
+                }
+            }
+        }
+        if (thousands == 0) answer += "тысяч "
+        if (thousands in 1..19) {
+            when (thousands) {
+                1 -> answer += "одна тысяча" + " "
+                2 -> answer += "две тысячи" + " "
+                3 -> answer += "три тысячи" + " "
+                4 -> answer += "четыре тысячи" + " "
+                else -> for (i in 0 until arabic.size - 4) {
+                    if (arabic[i].second == thousands) answer += arabic[i].first + " " + "тысяч" + " "
+                }
+            }
+        }
+    }
+    if (hundreds in 100..999) {
+        for (i in 0 until arabic.size) {
+            if (arabic[i].second == (hundreds / 100) * 100) {
+                answer += arabic[i].first + " "
+                hundreds %= 100
+            }
+        }
+    }
+    if (hundreds in 20..99) {
+        for (i in 0 until arabic.size) {
+            if (arabic[i].second == (hundreds / 10) * 10) {
+                answer += arabic[i].first + " "
+                hundreds %= 10
+            }
+        }
+    }
+    if (hundreds in 1..19) {
+        for (i in 0 until arabic.size) {
+            if (arabic[i].second == hundreds) answer += arabic[i].first
+        }
+    }
+    return answer.trim()
+}
