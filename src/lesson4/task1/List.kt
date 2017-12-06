@@ -2,6 +2,7 @@
 
 package lesson4.task1
 
+import com.sun.javafx.collections.MappingChange
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
@@ -326,16 +327,18 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    val arabic = listOf((Pair("девятьсот", 900)), (Pair("восемьсот", 800)), (Pair("семьсот", 700)), (Pair("шестьсот", 600)),
-            (Pair("пятьсот", 500)), (Pair("четыреста", 400)), (Pair("триста", 300)), (Pair("двести", 200)),
-            (Pair("сто", 100)), (Pair("девяносто", 90)), (Pair("восемьдесят", 80)), (Pair("семьдесят", 70)),
-            (Pair("шестьдесят", 60)), (Pair("пятьдесят", 50)), (Pair("сорок", 40)), (Pair("тридцать", 30)),
-            (Pair("двадцать", 20)), (Pair("девятнадцать", 19)), (Pair("восемнадцать", 18)), (Pair("семнадцать", 17)),
-            (Pair("шестнадцать", 16)), (Pair("пятнадцать", 15)), (Pair("четырнадцать", 14)), (Pair("тринадцать", 13)),
-            (Pair("двенадцать", 12)), (Pair("одиннадцать", 11)), (Pair("десять", 10)), (Pair("девять", 9)),
-            (Pair("восемь", 8)), (Pair("семь", 7)), (Pair("шесть", 6)), (Pair("пять", 5)),
-            (Pair("четыре", 4)), (Pair("три", 3)), (Pair("два", 2)), (Pair("один", 1)))
-
+    val arabic = mapOf("девятьсот" to 900, "восемьсот" to 800, "семьсот" to 700, "шестьсот" to 600,
+            "пятьсот" to 500, "четыреста" to 400, "триста" to 300, "двести" to 200,
+            "сто" to 100, "девяносто" to 90, "восемьдесят" to 80, "семьдесят" to 70,
+            "шестьдесят" to 60, "пятьдесят" to 50, "сорок" to 40, "тридцать" to 30,
+            "двадцать" to 20, "девятнадцать" to 19, "восемнадцать" to 18, "семнадцать" to 17,
+            "шестнадцать" to 16, "пятнадцать" to 15, "четырнадцать" to 14, "тринадцать" to 13,
+            "двенадцать" to 12, "одиннадцать" to 11, "десять" to 10, "девять" to 9,
+            "восемь" to 8, "семь" to 7, "шесть" to 6, "пять" to 5,
+            "четыре" to 4, "три" to 3, "два" to 2, "один" to 1)
+            .entries
+            .map { e -> e.value to e.key }
+            .toMap()
     var thousands = 0
     var hundreds = n % 1000
     var answer = ""
@@ -343,54 +346,34 @@ fun russian(n: Int): String {
     if (n >= 1000) thousands = n / 1000
     if (thousands != 0) {
         if (thousands in 100..999) {
-            for (i in 0 until arabic.size) {
-                if (arabic[i].second == (thousands / 100) * 100) {
-                    answer += arabic[i].first + " "
+                    answer += arabic[(thousands / 100) * 100] + " "
                     thousands %= 100
                 }
-            }
-        }
         if (thousands in 20..99) {
-            for (i in 0 until arabic.size) {
-                if (arabic[i].second == (thousands / 10) * 10) {
-                    answer += arabic[i].first + " "
+                    answer += arabic[(thousands / 10) * 10] + " "
                     thousands %= 10
                 }
-            }
-        }
-        if (thousands == 0) answer += "тысяч "
-        if (thousands in 1..19) {
+        if (thousands in 0..19) {
             when (thousands) {
+                0 -> answer += "тысяч" + " "
                 1 -> answer += "одна тысяча" + " "
                 2 -> answer += "две тысячи" + " "
                 3 -> answer += "три тысячи" + " "
                 4 -> answer += "четыре тысячи" + " "
-                else -> for (i in 0 until arabic.size - 4) {
-                    if (arabic[i].second == thousands) answer += arabic[i].first + " " + "тысяч" + " "
-                }
+                else -> answer += arabic[thousands] + " " + "тысяч" + " "
             }
         }
-    }
+            }
     if (hundreds in 100..999) {
-        for (i in 0 until arabic.size) {
-            if (arabic[i].second == (hundreds / 100) * 100) {
-                answer += arabic[i].first + " "
+                answer += arabic[(hundreds / 100) * 100] + " "
                 hundreds %= 100
             }
-        }
-    }
     if (hundreds in 20..99) {
-        for (i in 0 until arabic.size) {
-            if (arabic[i].second == (hundreds / 10) * 10) {
-                answer += arabic[i].first + " "
+                answer += arabic[(hundreds / 10) * 10] + " "
                 hundreds %= 10
-            }
-        }
     }
     if (hundreds in 1..19) {
-        for (i in 0 until arabic.size) {
-            if (arabic[i].second == hundreds) answer += arabic[i].first
+        answer += arabic[hundreds]
         }
-    }
     return answer.trim()
 }

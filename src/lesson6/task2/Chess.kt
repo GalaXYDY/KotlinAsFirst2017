@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson6.task2
 
 /**
@@ -6,6 +7,7 @@ package lesson6.task2
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
  * Горизонтали нумеруются снизу вверх, вертикали слева направо.
  */
+val columnchess = "abcdefgh"
 data class Square(val column: Int, val row: Int) {
     /**
      * Пример
@@ -21,7 +23,13 @@ data class Square(val column: Int, val row: Int) {
      * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
      * Для клетки не в пределах доски вернуть пустую строку
      */
-    fun notation(): String = TODO()
+    fun notation(): String {
+        var list = ""
+        if (inside()) {
+            list += columnchess[column - 1] + row
+        }
+        return list
+    }
 }
 
 /**
@@ -31,7 +39,16 @@ data class Square(val column: Int, val row: Int) {
  * В нотации, колонки обозначаются латинскими буквами от a до h, а ряды -- цифрами от 1 до 8.
  * Если нотация некорректна, бросить IllegalArgumentException
  */
-fun square(notation: String): Square = TODO()
+fun square(notation: String): Square {
+    val column = notation[0]
+    val row = notation[1].toString().toInt()
+    try {
+        if (notation.length != 2 || row !in 1..8 || column !in columnchess) throw IllegalArgumentException()
+        else return Square(columnchess.indexOf(column) + 1, row)
+    } catch (e: Exception){
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Простая
@@ -56,7 +73,14 @@ fun square(notation: String): Square = TODO()
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int = TODO()
+fun rookMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    return when{
+        start.notation() == end.notation() -> 0
+        start.column == end.column || start.row == end.row -> 1
+        else -> 2
+    }
+}
 
 /**
  * Средняя
@@ -72,7 +96,14 @@ fun rookMoveNumber(start: Square, end: Square): Int = TODO()
  *          rookTrajectory(Square(3, 5), Square(8, 5)) = listOf(Square(3, 5), Square(8, 5))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun rookTrajectory(start: Square, end: Square): List<Square> {
+    if (start == end) return listOf(start)
+    if (rookMoveNumber(start, end) == 1) return listOf(start, end)
+    return when{
+        (start.column == end.row) -> listOf(start, Square(start.column, end.row), end)
+        else -> listOf(start, Square(end.column, start.row), end)
+    }
+}
 
 /**
  * Простая

@@ -2,6 +2,8 @@
 package lesson6.task1
 
 import lesson1.task1.sqr
+import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte1.other
+import java.util.Collections.min
 
 /**
  * Точка на плоскости
@@ -95,6 +97,10 @@ data class Segment(val begin: Point, val end: Point) {
 
     override fun hashCode() =
             begin.hashCode() + end.hashCode()
+
+    fun center() = Point((begin.x + end.x) / 2, (begin.y + end.y) / 2)
+
+    fun radius() = begin.distance(end) / 2
 }
 
 /**
@@ -103,7 +109,20 @@ data class Segment(val begin: Point, val end: Point) {
  * Дано множество точек. Вернуть отрезок, соединяющий две наиболее удалённые из них.
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
-fun diameter(vararg points: Point): Segment = TODO()
+fun diameter(vararg points: Point): Segment {
+    var line = Segment(points[0],points[1])
+    var max = 0.0
+    if (points.size < 2) throw IllegalArgumentException()
+    for (i in 0 until points.size){
+        for (k in i + 1 until points.size) {
+            if (points[i].distance(points[k]) > max) {
+                max = points[i].distance(points[k])
+                line = Segment(points[i], points[k])
+            }
+        }
+    }
+    return line
+}
 
 /**
  * Простая
@@ -111,7 +130,7 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle = TODO()
+fun circleByDiameter(diameter: Segment): Circle = Circle(diameter.center(), diameter.radius())
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
@@ -125,6 +144,8 @@ class Line private constructor(val b: Double, val angle: Double) {
     }
 
     constructor(point: Point, angle: Double): this(point.y * Math.cos(angle) - point.x * Math.sin(angle), angle)
+
+
 
     /**
      * Средняя
