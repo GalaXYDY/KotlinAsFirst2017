@@ -46,13 +46,9 @@ data class Square(val column: Int, val row: Int) {
 fun square(notation: String): Square {
     val column = notation[0]
     val row = notation[1].toString().toInt()
-    try {
         if (notation.length != 2 || row !in 1..8 || column !in columnchess) throw IllegalArgumentException()
-        else return Square(columnchess.indexOf(column) + 1, row)
-    } catch (e: Exception) {
-        throw IllegalArgumentException()
+        return Square(columnchess.indexOf(column) + 1, row)
     }
-}
 
 /**
  * Простая
