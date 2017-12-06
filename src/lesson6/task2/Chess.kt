@@ -30,7 +30,7 @@ data class Square(val column: Int, val row: Int) {
     fun notation(): String {
         var list = ""
         if (inside()) {
-            list += columnchess[column - 1] + row
+            list += columnchess[column - 1] + row.toString()
         }
         return list
     }
