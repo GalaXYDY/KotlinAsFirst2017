@@ -2,8 +2,6 @@
 package lesson6.task1
 
 import lesson1.task1.sqr
-import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte1.other
-import java.util.Collections.min
 
 /**
  * Точка на плоскости
