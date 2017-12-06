@@ -76,8 +76,8 @@ data class Circle(val center: Point, val radius: Double) {
      */
     fun distance(other: Circle): Double {
         val distance = center.distance(other.center) - other.radius - radius
-        if (distance > 0.0) return distance
-        else return 0.0
+        return if (distance > 0.0) distance
+        else 0.0
     }
 
     /**

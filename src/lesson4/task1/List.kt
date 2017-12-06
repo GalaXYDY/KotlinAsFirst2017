@@ -349,6 +349,7 @@ fun russian(n: Int): String {
                     answer += arabic[(thousands / 100) * 100] + " "
                     thousands %= 100
                 }
+            }
         if (thousands in 20..99) {
                     answer += arabic[(thousands / 10) * 10] + " "
                     thousands %= 10
@@ -361,8 +362,7 @@ fun russian(n: Int): String {
                 3 -> answer += "три тысячи" + " "
                 4 -> answer += "четыре тысячи" + " "
                 else -> answer += arabic[thousands] + " " + "тысяч" + " "
-            }
-        }
+                }
             }
     if (hundreds in 100..999) {
                 answer += arabic[(hundreds / 100) * 100] + " "
