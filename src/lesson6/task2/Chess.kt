@@ -239,7 +239,7 @@ fun kingTrajectory(start: Square, end: Square): List<Square> {
         original = Square(column2, row2)
         list.add(original)
     }
-    return list 
+    return list
 }
 
 /**
