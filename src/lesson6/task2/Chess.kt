@@ -3,6 +3,7 @@
 package lesson6.task2
 
 import java.lang.Math.abs
+import java.lang.Math.max
 
 
 /**
@@ -30,7 +31,7 @@ data class Square(val column: Int, val row: Int) {
     fun notation(): String {
         var list = ""
         if (inside()) {
-            list += columnchess[column - 1] + row.toString()
+            list = columnchess[column - 1] + row.toString()
         }
         return list
     }
@@ -44,11 +45,9 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square {
-    val column = notation[0]
-    val row = notation[1].toString().toInt()
-        if (notation.length != 2 || row !in 1..8 || column !in columnchess) throw IllegalArgumentException()
-        return Square(columnchess.indexOf(column) + 1, row)
-    }
+    if (notation.length != 2 || notation[1] !in '1'..'8' || notation[0] !in columnchess) throw IllegalArgumentException()
+    return Square(columnchess.indexOf(notation[0]) + 1, notation[1].toString().toInt())
+}
 
 /**
  * Простая
@@ -194,7 +193,12 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int = TODO()
+fun kingMoveNumber(start: Square, end: Square): Int {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    val sub1 = abs(start.row - end.row)
+    val sub2 = abs(start.column - end.column)
+    return max(sub1, sub2)
+}
 
 /**
  * Сложная
@@ -210,7 +214,33 @@ fun kingMoveNumber(start: Square, end: Square): Int = TODO()
  *          kingTrajectory(Square(3, 5), Square(6, 2)) = listOf(Square(3, 5), Square(4, 4), Square(5, 3), Square(6, 2))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun kingTrajectory(start: Square, end: Square): List<Square> {
+    var original = start
+    val list = mutableListOf(start)
+    var row2 = original.row
+    var column2 = original.column
+    while (original != end) {
+        when {
+            column2 != end.column && row2 != end.row -> {
+                if (column2 < end.column) column2++
+                else column2--
+                if (row2 < end.row) row2++
+                else row2--
+            }
+            column2 == end.column -> {
+                if (row2 < end.row) row2++
+                else row2--
+            }
+            row2 == end.row -> {
+                if (column2 < end.column) column2++
+                else column2--
+            }
+        }
+        original = Square(column2, row2)
+        list.add(original)
+    }
+    return list
+}
 
 /**
  * Сложная

@@ -6,8 +6,7 @@ import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
 import lesson3.task1.maxDivisor
-import java.lang.Math.pow
-import java.lang.Math.sqrt
+import java.lang.Math.*
 
 /**
  * Пример
@@ -210,8 +209,8 @@ fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
     var sp = 2
     var l = n
-    if (isPrime(n)) list += n
-    else while (sp <= l) {
+    if (isPrime(n)) return listOf(n)
+    while (sp <= sqr(n.toDouble())) {
         while (l % sp == 0) {
             list += sp
             l /= sp

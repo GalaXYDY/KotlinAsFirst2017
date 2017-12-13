@@ -98,7 +98,9 @@ data class Segment(val begin: Point, val end: Point) {
 
     fun center() = Point((begin.x + end.x) / 2, (begin.y + end.y) / 2)
 
-    fun radius() = begin.distance(end) / 2
+    fun length() = begin.distance(end)
+
+    fun radius() = length() / 2
 }
 
 /**
@@ -108,9 +110,9 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment {
+    if (points.size < 2) throw IllegalArgumentException()
     var line = Segment(points[0],points[1])
     var max = 0.0
-    if (points.size < 2) throw IllegalArgumentException()
     for (i in 0 until points.size){
         for (k in i + 1 until points.size) {
             if (points[i].distance(points[k]) > max) {
