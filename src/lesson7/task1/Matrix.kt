@@ -40,7 +40,7 @@ interface Matrix<E> {
  */
 fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
     if (height * width <= 0) throw IllegalArgumentException()
-    return MatrixImpl<E>(height, width, e) 
+    return MatrixImpl<E>(height, width, e)
 }
 
 /**
@@ -50,21 +50,16 @@ fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
  */
 class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : Matrix<E> {
 
-    private val matrixlist = mutableListOf<E>()
-    init {
-        for (i in 0 until height * width) matrixlist.add(e)
-    }
+    override fun get(row: Int, column: Int): E  = TODO()
 
-    override fun get(row: Int, column: Int): E  = matrixlist[column * height + row]
-
-    override fun get(cell: Cell): E  = matrixlist[cell.column * height + cell.row]
+    override fun get(cell: Cell): E  = TODO()
 
     override fun set(row: Int, column: Int, value: E) {
-        matrixlist[column * height + row] = value
+        TODO()
     }
 
     override fun set(cell: Cell, value: E) {
-        matrixlist[cell.column * height + cell.row] = value
+        TODO()
     }
 
     override fun equals(other: Any?) = TODO()
