@@ -6,7 +6,7 @@ import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
 import lesson3.task1.maxDivisor
-import java.lang.Math.*
+import java.lang.Math.sqrt
 
 /**
  * Пример
