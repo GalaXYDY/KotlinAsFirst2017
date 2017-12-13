@@ -40,7 +40,7 @@ interface Matrix<E> {
  */
 fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
     if (height * width <= 0) throw IllegalArgumentException()
-    return MatrixImpl<E>(height, width, e)
+    return MatrixImpl<E>(height, width, e) 
 }
 
 /**
