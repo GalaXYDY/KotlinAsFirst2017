@@ -217,7 +217,7 @@ fun factorize(n: Int): List<Int> {
         }
         sp++
     }
-    return list
+    return list 
 }
 
 /**
