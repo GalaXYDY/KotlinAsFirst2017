@@ -110,7 +110,7 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
         val result = MatrixImpl(matrix.width, matrix.height, matrix[0, 0])
         for (i in 0 until matrix.width) {
             for (j in 0 until matrix.height) {
-                result[i, (matrix.height - 1) - i] = matrix[j, i]
+                result[i, (matrix.width - 1) - j] = matrix[j, i]
             }
         }
         return result
