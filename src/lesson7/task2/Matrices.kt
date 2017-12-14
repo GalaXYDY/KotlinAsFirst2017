@@ -3,6 +3,7 @@
 package lesson7.task2
 
 import lesson7.task1.Matrix
+import lesson7.task1.MatrixImpl
 import lesson7.task1.createMatrix
 
 // Все задачи в этом файле требуют наличия реализации интерфейса "Матрица" в Matrix.kt
@@ -106,7 +107,7 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
      */
     fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
         if (matrix.height != matrix.width) throw IllegalArgumentException()
-        val result = createMatrix(height = matrix.width, width = matrix.height, e = matrix[0, 0])
+        val result = MatrixImpl(matrix.width, matrix.height, matrix[0, 0])
         for (i in 0 until matrix.width) {
             for (j in 0 until matrix.height) {
                 result[i, (matrix.height - 1) - i] = matrix[j, i]
