@@ -211,8 +211,7 @@ fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
     var sp = 2
     var l = n
-    if (isPrime(n)) return listOf(n)
-    while (sp <= sqr(n.toDouble())) {
+    while (sp <= sqrt(l.toDouble())) {
         while (l % sp == 0) {
             list += sp
             l /= sp
