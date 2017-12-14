@@ -2,10 +2,12 @@
 
 package lesson4.task1
 
+import com.sun.javafx.collections.MappingChange
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
 import lesson3.task1.maxDivisor
+import java.lang.Math.pow
 import java.lang.Math.sqrt
 
 /**
@@ -206,21 +208,18 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    val result = mutableListOf<Int>()
-    var i = 2
-    var num = n
-    if (isPrime(n)) {
-        result += n
-    } else {
-        while (num > 0 && i <= num) {
-            while (num % i == 0) {
-                num /= i
-                result.add(i)
-            }
-            i++
+    val list = mutableListOf<Int>()
+    var sp = 2
+    var l = n
+    if (isPrime(n)) list += n
+    else while (sp <= l) {
+        while (l % sp == 0) {
+            list += sp
+            l /= sp
         }
+        sp++
     }
-    return result
+    return list
 }
 
 /**
@@ -340,40 +339,41 @@ fun russian(n: Int): String {
             .entries
             .map { e -> e.value to e.key }
             .toMap()
+    var thousands = 0
     var hundreds = n % 1000
-    val answer = StringBuilder()
+    var answer = ""
     if (n == 0) return "ноль"
-    var thousands = n / 1000
+    if (n >= 1000) thousands = n / 1000
     if (thousands != 0) {
         if (thousands in 100..999) {
-            answer.append(arabic[(thousands / 100) * 100] + " ")
-            thousands %= 100
-        }
+                    answer += arabic[(thousands / 100) * 100] + " "
+                    thousands %= 100
+                }
+            }
         if (thousands in 20..99) {
-            answer.append(arabic[(thousands / 10) * 10] + " ")
-            thousands %= 10
-        }
+                    answer += arabic[(thousands / 10) * 10] + " "
+                    thousands %= 10
+                }
         if (thousands in 0..19) {
             when (thousands) {
-                0 -> answer.append("тысяч" + " ")
-                1 -> answer.append("одна тысяча" + " ")
-                2 -> answer.append("две тысячи" + " ")
-                3 -> answer.append("три тысячи" + " ")
-                4 -> answer.append("четыре тысячи" + " ")
-                else -> answer.append(arabic[thousands] + " " + "тысяч" + " ")
+                0 -> answer += "тысяч" + " "
+                1 -> answer += "одна тысяча" + " "
+                2 -> answer += "две тысячи" + " "
+                3 -> answer += "три тысячи" + " "
+                4 -> answer += "четыре тысячи" + " "
+                else -> answer += arabic[thousands] + " " + "тысяч" + " "
+                }
             }
-        }
-    }
     if (hundreds in 100..999) {
-        answer.append(arabic[(hundreds / 100) * 100] + " ")
-        hundreds %= 100
-    }
+                answer += arabic[(hundreds / 100) * 100] + " "
+                hundreds %= 100
+            }
     if (hundreds in 20..99) {
-        answer.append(arabic[(hundreds / 10) * 10] + " ")
-        hundreds %= 10
+                answer += arabic[(hundreds / 10) * 10] + " "
+                hundreds %= 10
     }
     if (hundreds in 1..19) {
-        answer.append(arabic[hundreds])
-    }
-    return answer.trim().toString()
+        answer += arabic[hundreds]
+        }
+    return answer.trim()
 }
