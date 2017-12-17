@@ -218,7 +218,7 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
      */
     operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
         for (i in 0 until this.height) {
-            for (j in 0 until this.height) {
+            for (j in 0 until this.width) {
                 this[i, j] = -this[j, i]
             }
         }

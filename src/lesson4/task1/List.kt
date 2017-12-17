@@ -2,7 +2,6 @@
 
 package lesson4.task1
 
-import com.sun.javafx.collections.MappingChange
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
@@ -217,6 +216,9 @@ fun factorize(n: Int): List<Int> {
             l /= sp
         }
         sp++
+    }
+    if (l != 1){
+    list.add(l)
     }
     return list
 }

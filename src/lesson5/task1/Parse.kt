@@ -116,19 +116,8 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    val symbols = listOf(' ', '-', '(', ')')
-    val num = StringBuilder()
-    for (i in 0 until phone.length - 1) {
-        if (i.toChar() == '+' && i.toChar() - 1 in symbols) return ""
-    }
-    for (element in phone) {
-        if (element == '+') {
-            num.append('+')
-        } else if (element in '0'..'9') {
-            num.append(element)
-        } else if (element !in symbols) return ""
-    }
-    return num.toString()
+    if (!phone.contains(Regex("""^[\s-]?\+?\d+[\s\d()-]+$"""))) return "" // не могу понять, как полностью написать все условия формата
+    return phone.replace(Regex("""[ ()-]"""), "")
 }
 
 /**

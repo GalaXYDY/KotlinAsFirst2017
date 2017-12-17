@@ -38,10 +38,7 @@ interface Matrix<E> {
  * height = высота, width = ширина, e = чем заполнить элементы.
  * Бросить исключение IllegalArgumentException, если height или width <= 0.
  */
-fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
-    if (height * width <= 0) throw IllegalArgumentException()
-    return MatrixImpl(height, width, e)
-}
+fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> = MatrixImpl(height, width, e)
 
 /**
  * Средняя сложность
@@ -51,10 +48,9 @@ fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
 class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): Matrix<E> {
 
     private val matrixlist = mutableListOf<E>()
-    val multiply = height * width
 
     init {
-        for(i in 0 until multiply)
+        for(i in 0 until height * width)
             matrixlist.add(e)
     }
 
@@ -70,7 +66,7 @@ class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): M
         matrixlist[height * cell.column + cell.row] = value
     }
 
-    override fun equals(other: Any?) =
+    override fun equals(other: Any?): Boolean =
             other is MatrixImpl<*> &&
                     height == other.height &&
                     width == other.width
@@ -82,6 +78,7 @@ class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): M
             sb.append("[")
             for (column in 0 until width) {
                 sb.append(this[row, column])
+                if (column != width - 1) sb.append(" ")
             }
             sb.append("]")
         }
@@ -93,7 +90,7 @@ class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): M
         var result = height
         result = 31 * result + width
         result = 31 * result + matrixlist.hashCode()
-        result = 31 * result + multiply
+        result = 31 * result + height * width
         return result
     }
 }
