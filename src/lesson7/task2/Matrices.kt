@@ -82,12 +82,13 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> {
             matrix[endheight - 1, j] = num
             num++
         }
-        endheight --
+        endheight--
         for (i in endheight - 1 downTo beginheight) {
-            matrix[i, beginwidth]
+            matrix[i, beginwidth] = num
+            num++
         }
-        beginwidth ++
-        beginheight ++
+        beginwidth++
+        beginheight++
     }
     return matrix
 }
