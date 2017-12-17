@@ -155,14 +155,14 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 fun midchess(start: Square, end: Square): List<Square> {
-    for (mid1 in 1..8) {
-        for (mid2 in 1..8) {
-            val center = Square(mid1, mid2)
-            if (bishopMoveNumber(start, center) == 1 && bishopMoveNumber(center, end) == 1)
-                return listOf(start, center, end)
-        }
+    if (bishopMoveNumber(start, end) == -1) return emptyList()
+    var column2 = (start.column - start.row + end.column + end.row) / 2
+    var row2 = (start.row - start.column + end.column + end.row) / 2
+    if (!Square(column2, row2).inside()) {
+        row2 = (end.row - end.column + start.column + start.row) / 2
+        column2 = (end.column - end.row + start.column + start.row) / 2
     }
-    return emptyList()
+    return listOf(start, Square(column2, row2), end)
 }
 
 fun bishopTrajectory(start: Square, end: Square): List<Square> {
