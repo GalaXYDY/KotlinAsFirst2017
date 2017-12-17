@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER", "unused")
+
 package lesson7.task1
 
 /**
@@ -21,6 +22,7 @@ interface Matrix<E> {
      * Методы могут бросить исключение, если ячейка не существует или пуста
      */
     operator fun get(row: Int, column: Int): E
+
     operator fun get(cell: Cell): E
 
     /**
@@ -28,6 +30,7 @@ interface Matrix<E> {
      * Методы могут бросить исключение, если ячейка не существует
      */
     operator fun set(row: Int, column: Int, value: E)
+
     operator fun set(cell: Cell, value: E)
 }
 
@@ -38,31 +41,31 @@ interface Matrix<E> {
  * height = высота, width = ширина, e = чем заполнить элементы.
  * Бросить исключение IllegalArgumentException, если height или width <= 0.
  */
-fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
-    if (height * width <= 0) throw IllegalArgumentException()
-    return MatrixImpl(height, width, e)
-}
+fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> = MatrixImpl(height, width, e)
 
 /**
  * Средняя сложность
  *
  * Реализация интерфейса "матрица"
  */
-class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): Matrix<E> {
+class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : Matrix<E> {
 
     private val matrixlist = mutableListOf<E>()
 
     init {
-        for(i in 0 until height * width)
+        if (height <= 0 || width <= 0) throw IllegalArgumentException()
+        for (i in 0 until height * width)
             matrixlist.add(e)
     }
 
-    override fun get(row: Int, column: Int): E  = matrixlist[height * column + row]
+    override fun get(row: Int, column: Int): E = if (column in 0 until width && row in 0 until height) matrixlist[height * column + row]
+    else throw IllegalArgumentException()
 
-    override fun get(cell: Cell): E  = matrixlist[height * cell.column + cell.row]
+    override fun get(cell: Cell): E = matrixlist[height * cell.column + cell.row]
 
     override fun set(row: Int, column: Int, value: E) {
-        matrixlist[height * column + row] = value
+        if (column in 0 until width && row in 0 until height) matrixlist[height * column + row] = value
+        else throw IllegalArgumentException()
     }
 
     override fun set(cell: Cell, value: E) {
@@ -72,7 +75,8 @@ class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): M
     override fun equals(other: Any?): Boolean =
             other is MatrixImpl<*> &&
                     height == other.height &&
-                    width == other.width
+                    width == other.width &&
+                    matrixlist == other.matrixlist
 
     override fun toString(): String {
         val sb = StringBuilder()
@@ -93,7 +97,6 @@ class MatrixImpl<E> (override val height: Int, override val width: Int, e: E): M
         var result = height
         result = 31 * result + width
         result = 31 * result + matrixlist.hashCode()
-        result = 31 * result + height * width
         return result
     }
 }
