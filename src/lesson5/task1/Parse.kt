@@ -116,7 +116,7 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (!phone.contains(Regex("""^\+?[ \d()-]+$"""))) return "" // не могу понять, как полностью написать все условия формата
+    if (!phone.contains(Regex("""^(\+\d+ )?(\(\d+\))?[ \d-]+$"""))) return ""
     return phone.replace(Regex("""[ ()-]"""), "")
 }
 
