@@ -62,7 +62,7 @@ operator fun Matrix<Int>.plus(other: Matrix<Int>): Matrix<Int> {
  *  9  8  7  6
  */
 fun generateSpiral(height: Int, width: Int): Matrix<Int> {
-    val matrix = createMatrix(height, width, 1)
+    val matrix = createMatrix(height, width, 0)
     var num = 1
     var beginheight = 1
     var beginwidth = 0
@@ -77,17 +77,17 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> {
             matrix[i, endwidth - 1] = num
             num++
         }
+        endwidth--
         for (j in endwidth - 1 downTo beginwidth) {
             matrix[endheight - 1, j] = num
             num++
         }
+        endheight --
         for (i in endheight - 1 downTo beginheight) {
             matrix[i, beginwidth]
         }
         beginwidth ++
         beginheight ++
-        endheight --
-        endwidth --
     }
     return matrix
 }
