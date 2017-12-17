@@ -77,7 +77,7 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> {
             matrix[i, endwidth - 1] = num
             num++
         }
-        if (num >= height * width) return matrix
+        if (num > height * width) return matrix
         endwidth--
         for (j in endwidth - 1 downTo beginwidth) {
             matrix[endheight - 1, j] = num
